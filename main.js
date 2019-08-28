@@ -21,33 +21,51 @@ const pieArray = [
     },
     {name: 'apple pie',
     picture: 'https://img1.southernliving.timeinc.net/sites/default/files/styles/4_3_horizontal_-_1200x900/public/image/2017/10/main/arkansas_black_apple_pie_with_caramel_sauce_2540501_pieso_675.jpg?itok=e6AfBEXc',
-    instructor: 'maggie'
+    instructor: 'zoe'
     }
 ]
 
 // Loop over pies, print pies to the dom, bonus flex-box 'em
 
 const printToDom = (toPrint, divId) => {
-    document.getElementById(divId).innerHTML += toPrint;
+    document.getElementById(divId).innerHTML = toPrint;
 }
 
 const loopAndPrintPieToDom = (pieArr) => {
+        let domString = '';
     for (let i = 0; i < pieArr.length; i++) {
         const pie = pieArr[i];
-        const domString = `    
+        domString += `    
         <div id="card">
             <h2>${pie.name}</h2>
             <img src="${pie.picture}" alt="Image of ${pie.name}"/>
             <h4>${pie.instructor}</h4>
         </div>
         `;
-        printToDom(domString, 'pieCards');
     }
+    printToDom(domString, 'pieCards');
 };
 
-loopAndPrintPieToDom(pieArray);
+// loopAndPrintPieToDom(pieArray);
 
-document.getElementById('myButton').addEventListener('click', () => {
-    console.log('bite me');
+const buttonClick = (event) => {
+    const instructor = event.target.id;
+    const selectedPies = [];
+    for (let i = 0; i < pieArray.length; i ++) {
+        const pie = pieArray[i];
+        if (pie.instructor === instructor) {
+            selectedPies.push(pie);
+        }
+    }
+    loopAndPrintPieToDom(selectedPies);
+};
+
+document.getElementById('michael').addEventListener('click', buttonClick);
+document.getElementById('maggie').addEventListener('click', buttonClick);
+document.getElementById('greg').addEventListener('click', buttonClick);
+document.getElementById('zoe').addEventListener('click', buttonClick);
+document.getElementById('callan').addEventListener('click', buttonClick);
+document.getElementById('all').addEventListener('click', () => {
+    loopAndPrintPieToDom(pieArray);
 });
 
